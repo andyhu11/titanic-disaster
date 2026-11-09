@@ -1,0 +1,28 @@
+# ---- Data (never commit the dataset) ----
+# Ignore everything inside src/data/ but keep the empty folder via .gitkeep
+src/data/*
+!src/data/.gitkeep
+*.csv
+*.zip
+
+# ---- OS hidden files ----
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ---- Python ----
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# ---- R ----
+.Rhistory
+.RData
+.Rproj.user/
+
+# ---- Editors ----
+.vscode/
+.idea/
