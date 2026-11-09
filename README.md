@@ -191,12 +191,13 @@ submitting `predictions_python.csv` and `predictions_r.csv` to the
 | Metric | Python (scikit-learn) | R (glm) |
 |---|---|---|
 | Training accuracy (100% of `train.csv`) | 0.8350 | 0.8047 |
-| Validation accuracy (20% hold-out of `train.csv`) | 0.8436 | 0.8371 |
+| Validation accuracy (stratified hold-out of approximately 20% of `train.csv`) | 0.8436 | 0.8371 |
 | **Test accuracy: Kaggle public leaderboard (`test.csv`)** | **0.77033** | **0.75837** |
 
-The Kaggle test score is lower than the validation accuracy. This is expected with a small
-dataset (179 validation rows) and a simple linear model. The public leaderboard is also
-scored on only part of `test.csv`.
+The Kaggle leaderboard for this competition is calculated on all of `test.csv` (418 passengers).
+The test score is lower than the validation accuracy. This is expected because the validation
+set is small (approximately 20% of `train.csv`: 179 rows in Python, 178 in R because of per-class
+rounding) and the models are simple linear ones.
 
 ---
 
