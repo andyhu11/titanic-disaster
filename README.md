@@ -182,6 +182,22 @@ hidden for the competition. Test accuracy therefore cannot be computed locally. 
 If a labeled `test.csv` is provided instead, the scripts detect the `Survived`
 column and print the real test accuracy automatically.
 
+## Results
+
+Results from running both containers on the official Kaggle data. The test-set accuracy comes from
+submitting `predictions_python.csv` and `predictions_r.csv` to the
+[Titanic competition](https://www.kaggle.com/competitions/titanic) (submitted 2026-11-08).
+
+| Metric | Python (scikit-learn) | R (glm) |
+|---|---|---|
+| Training accuracy (100% of `train.csv`) | 0.8350 | 0.8047 |
+| Validation accuracy (20% hold-out of `train.csv`) | 0.8436 | 0.8371 |
+| **Test accuracy: Kaggle public leaderboard (`test.csv`)** | **0.77033** | **0.75837** |
+
+The Kaggle test score is lower than the validation accuracy. This is expected with a small
+dataset (179 validation rows) and a simple linear model. The public leaderboard is also
+scored on only part of `test.csv`.
+
 ---
 
 ## Troubleshooting
