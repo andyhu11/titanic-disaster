@@ -68,10 +68,14 @@ All commands below are run from this `titanic-disaster` folder (the repository r
 **Option B: Kaggle CLI** (requires an API token in `~/.kaggle/kaggle.json`, and the rules must already be accepted on the website)
 
 ```bash
-pip install kaggle
+pip install kaggle==1.7.4.5
 kaggle competitions download -c titanic -p src/data
-cd src/data && unzip titanic.zip && cd ../..
 ```
+
+Then unzip it:
+
+- macOS / Linux / Git Bash: `unzip src/data/titanic.zip -d src/data`
+- Windows PowerShell: `Expand-Archive src/data/titanic.zip -DestinationPath src/data`
 
 When you are done, the folder must look like this:
 
@@ -108,7 +112,9 @@ docker run --rm -v "%cd%/src/data:/app/data" titanic-python
 
 ## Step 4: Run the R container
 
-Build the image (the first build downloads R packages and takes a few minutes):
+Build the image (the first build downloads R packages and takes a few minutes).
+Package versions are reproducible: the `rocker/r-ver:4.4.1` base image installs packages from a
+CRAN snapshot dated 2024-10-30, which resolves to readr 2.1.5 and dplyr 1.1.4.
 
 ```bash
 docker build -t titanic-r src/r_app
@@ -144,7 +150,7 @@ Both scripts print the same numbered sections:
 | STEP 2 | Interesting notes: survival rate overall, by sex, by class, children vs adults |
 | STEP 3 | Every data change, tagged `[ADD]`, `[FILL]`, `[DROP]`, `[ENCODE]`, `[CHECK]` |
 | STEP 4 | Train/validation split and the fitted logistic regression coefficients |
-| STEP 5 | Accuracy on the training set (and on a 20% held-out validation set) |
+| STEP 5 | Accuracy on the training set (and on a held-out validation set of approximately 20%) |
 | STEP 6 | `test.csv` cleaned with the **same** rules learned from `train.csv`, then predicted |
 | STEP 7 | Test-set accuracy (see note below) |
 
@@ -176,7 +182,7 @@ and `Parch` because they are perfectly collinear with `FamilySize`, which unregu
 Kaggle's `test.csv` **does not contain the `Survived` column**. The true labels are
 hidden for the competition. Test accuracy therefore cannot be computed locally. The scripts:
 
-1. report the accuracy on a **20% stratified hold-out** of `train.csv` as an estimate of test performance, and
+1. report the accuracy on a **stratified hold-out of approximately 20%** of `train.csv` as an estimate of test performance, and
 2. save the test predictions so they can be submitted on Kaggle to get the official score.
 
 If a labeled `test.csv` is provided instead, the scripts detect the `Survived`
